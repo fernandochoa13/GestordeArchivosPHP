@@ -1,5 +1,4 @@
 <?php
-
 if(isset($_GET['archivo'])) {
 
     $rutaArchivo = $_GET['archivo']; //Obtiene la ruta del archivo
@@ -8,13 +7,9 @@ if(isset($_GET['archivo'])) {
     $nombreArchivoReal = substr($nombreArchivo[2], 0, $longitudNombreArchivo-4);//Elimina la extension .txt   
     $fr = fopen($rutaArchivo, "r+");//Abrir el archivo
     $lectura = fread($fr, filesize($rutaArchivo));
-} else {
-    $message = "El archivo al que usted intenta acceder no existe";
-    header("Location:index.php?=msg".$message);
+    
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +18,7 @@ if(isset($_GET['archivo'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archivo <?php echo $nombreArchivoReal ?></title>
     <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="css/Imagenes/LIBRETA.png">
 </head>
 <body>
 
@@ -43,7 +39,6 @@ if(isset($_GET['archivo'])) {
     </form>
 </body>
 </html>
-
 <?php  
 if(isset($_POST['botonGuardarCambios'])) {//Guardar cambios del archivo
         $fr = fopen($rutaArchivo,'r+');
@@ -53,14 +48,11 @@ if(isset($_POST['botonGuardarCambios'])) {//Guardar cambios del archivo
         }
         $mensaje = "Se hizo el cambio en el archivo";
         fclose($fr);
-            header("Location:index.php?msg=".$mensaje);
+        echo("<script>location.href = '/index.php?msg=$mensaje';</script>");
 
 }
 
 if(isset($_POST['botonInicio'])) {//Regresar al inicio
-    $message = $_GET['msg'];
-    header("Location:index.php");
+    echo("<script>location.href = '/index.php';</script>");
 }
-
-
 ?>
