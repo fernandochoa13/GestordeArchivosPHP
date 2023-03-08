@@ -1,6 +1,3 @@
-<?php $msg = "";//Mensaje volviendo de otra página ?> 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloc de Notas | Fernando Ochoa</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="css/Imagenes/LIBRETA.png">
     <head>
 </head>
 </head>
@@ -44,9 +42,7 @@
 
 </body>
 </html>
-
 <?php
-
 //Crear archivo en un directorio
 if(isset($_POST['btn'])) {
     if(isset($_POST['nombreArchivonuevo']) && !empty($_POST['nombreArchivonuevo'] && !empty($_POST['directorioArchivonuevo'])) ) {
@@ -57,7 +53,7 @@ if(isset($_POST['btn'])) {
 
             if(file_exists('archivos/'.$directorio."/".$file)) { //Si ya existe
                 $mensaje = "Ese archivo ya existe";
-                header("Location:index.php?msg=".$mensaje);
+                header("Location: index.php?msg=".$mensaje);
             } else {
                 $fp = fopen('archivos/'.$directorio."/".$file, 'w+');
             if(!empty($_POST['textarea'])) { //Si no está vacío el text area
@@ -66,7 +62,7 @@ if(isset($_POST['btn'])) {
             }
             $mensaje = "Se creó el archivo";
             fclose($fp);
-            header("Location:index.php?msg=".$mensaje);
+            header("Location: index.php?msg=".$mensaje);
     
             }
         } else {//Si el directorio no existe
@@ -78,23 +74,15 @@ if(isset($_POST['btn'])) {
             }
             $mensaje = "Se creó el archivo";
             fclose($fp);
-            header("Location:index.php?msg=".$mensaje);
+            echo("<script>location.href = '/index.php?msg=$mensaje';</script>");
         }
        
-        
-
-        
-        
     }
-    
- 
 } 
-
 
 //Buscador de directorios
 $carpeta = "archivos/";//Donde buscar
 if(isset($_POST['botonBuscar']) && !empty($_POST['barraBusqueda'])) {
-    $msg = "";
     $busqueda = $_POST['barraBusqueda'];
     if($archivario = opendir($carpeta)) {
         while (false !== ($file = readdir($archivario) )) {
@@ -115,7 +103,6 @@ if(isset($_POST['botonBuscar']) && !empty($_POST['barraBusqueda'])) {
 } else { 
 
 //Navegador de directorios
-$msg = ""; ?> <?php
     if($archivario = opendir($carpeta)) {
         while (false !== ($file = readdir($archivario) )) {
             if ($file != "." && $file != "..") { 
@@ -132,18 +119,10 @@ $msg = ""; ?> <?php
     closedir($archivario);
     }   
 }
-
-
  //Mensaje despues de una acción
  
-
  if(isset($_GET['msg'])) { 
     $message = $_GET['msg'];
    echo "<script>alert('$message');</script>"; 
     }
-
-
-
-
-
 ?> 
