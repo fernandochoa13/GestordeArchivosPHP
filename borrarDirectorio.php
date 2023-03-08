@@ -9,8 +9,7 @@ if(isset($_GET['dir'])) {//Método para borrar directorio
         $archivos = scandir($nombreDirectorio); //obtenemos todos los nombres de los ficheros
         foreach ($archivos as $archivo) {
             if ('.' !== $archivo && '..' !== $archivo) {
-                $ficheros = "archivos\\" . $directorioBorrar . '\\' . $archivo;
-                var_dump($archivo);
+                $ficheros = "archivos/" . $directorioBorrar . '/' . $archivo;
 
                 if (is_file($ficheros)){
 
@@ -21,8 +20,8 @@ if(isset($_GET['dir'])) {//Método para borrar directorio
             }
         }
     rmdir($nombreDirectorio);
-         $message = "Se borro el fichero exitosamente";
-        header('Location: index.php?msg='.$message);
+         $message = "Se borró el fichero exitosamente";
+        echo("<script>location.href = '/index.php?msg=$message';</script>");
 
         
 
