@@ -1,13 +1,6 @@
 <?php
-
 $directorioNombre = $_GET['dir']; //Nombre del directorio obtenido de la url
-
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +9,7 @@ $directorioNombre = $_GET['dir']; //Nombre del directorio obtenido de la url
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directorio <?php echo $directorioNombre ?></title>
     <link rel="stylesheet" href="css/style.css">
+        <link rel="shortcut icon" href="css/Imagenes/LIBRETA.png">
 </head>
 <body>
     <div class="row">
@@ -35,10 +29,7 @@ $directorioNombre = $_GET['dir']; //Nombre del directorio obtenido de la url
     
 </body>
 </html>
-
-
 <?php
-
 //Lo que muestra al buscar
 $carpeta = "archivos/".$directorioNombre;
 if(isset($_POST['botonBuscar']) && !empty($_POST['barraBusqueda'])) {
@@ -96,8 +87,6 @@ if($archivario = opendir($carpeta)) {
     closedir($archivario);
     }
 }
-
-
 if(isset($_POST['btn'])) {//Al crear un archivo nuevo
     if(isset($_POST['nombreArchivonuevo']) && !empty($_POST['nombreArchivonuevo'])) {
 
@@ -106,30 +95,24 @@ if(isset($_POST['btn'])) {//Al crear un archivo nuevo
 
             if(file_exists('archivos/'.$directorio."/".$file)) {
                 $mensaje = "Ese archivo ya existe";
-                header("Location:index.php?msg=".$mensaje);
+                echo("<script>location.href = '/index.php?msg=$mensaje';</script>");
             } else {
                 $fp = fopen('archivos/'.$directorio."/".$file, 'w+');
             if(!empty($_POST['textarea'])) {
                 $contenidotextField = $_POST['textarea'] . "";
                 fwrite($fp, $contenidotextField);
             }
-            header("Location:directorioVista.php?dir=".$directorio);
+            echo("<script>location.href = '/directorioVista.php?dir=$directorio';</script>");
             $message = "Se creo el archivo exitosamente";
             echo "<script>alert('$message');</script>"; 
-    
             }
-
-       
-        
-
-        
         
     }
-    
- 
 } 
 //Form para crear archivo
-?> <div class="formNotas container-fluid">
+?>
+
+<div class="formNotas container-fluid">
 <h1 class="tituloNota">Añadir nueva Nota</h1> <br>
  <form action="" method="post">
  <label>Titulo del archivo:</label>  <br><br>
